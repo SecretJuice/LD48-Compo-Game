@@ -36,7 +36,7 @@ public class MicrophoneHandler : MonoBehaviour
 
         if (!Microphone.IsRecording(device) && !audioSource.isPlaying)
         {
-            print("Deepness Score: " + loBandSamples.Average() / totalBandSamples.Average());
+            print("Deepness Score: " + ListMedian(loBandSamples) / ListMedian(totalBandSamples));
             loBandSamples.Clear();
             totalBandSamples.Clear();
             audioSource.Play();
@@ -47,8 +47,8 @@ public class MicrophoneHandler : MonoBehaviour
     {
         float[] spectrum = new float[1024];
         audioSource.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
-        float l1 = (spectrum[0] + spectrum[2] + spectrum[4]) * 200;
-        float l2 = (spectrum[10] + spectrum[11] + spectrum[12]) * 200;
+        float l1 = (spectrum[0] + spectrum[2] + spectrum[4] + spectrum[5]) * 200;
+        float l2 = (spectrum[10] + spectrum[11] + spectrum[12]) + spectrum[13] * 200;
         float l3 = (spectrum[20] + spectrum[21] + spectrum[22]) * 200;
         float l4 = (spectrum[40] + spectrum[41] + spectrum[42] + spectrum[43]) * 200;
         float l5 = (spectrum[80] + spectrum[81] + spectrum[82] + spectrum[83]) * 200;
@@ -74,5 +74,15 @@ public class MicrophoneHandler : MonoBehaviour
             GameObject cube = Instantiate(audioVisualPrefab, new Vector2(i * 1.5f, -1f), Quaternion.identity);
             visualizer.Add(cube);
         }
+    }
+
+    float ListMedian(List<float> list)
+    {
+        List<float> sortedList = list;
+        sortedList.Sort();
+
+        int index = sortedList.Count / 2;
+
+        return sortedList[index];
     }
 }
