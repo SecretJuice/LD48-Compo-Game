@@ -8,7 +8,7 @@ public class MicrophoneHandler : MonoBehaviour
 {
 
     AudioSource audioSource;
-    string device = "Headset Microphone (2- CORSAIR HS70 PRO Wireless Gaming Headset)";
+    public string device = "Headset Microphone (2- CORSAIR HS70 PRO Wireless Gaming Headset)";
     public GameObject audioVisualPrefab;
     List<GameObject> visualizer = new List<GameObject>();
     List<float> loBandSamples = new List<float>();
@@ -17,6 +17,11 @@ public class MicrophoneHandler : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        print("Connected Devices: ");
+        foreach (string device in Microphone.devices)
+        {
+            print(device);
+        }
     }
 
     private void Start()
