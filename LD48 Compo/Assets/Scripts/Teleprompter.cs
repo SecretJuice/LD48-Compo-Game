@@ -54,9 +54,9 @@ public class Teleprompter : MonoBehaviour
         quotes.Add(new List<Quote>());
 
         quotes[0].Add(new Quote("Good morning America! We've got a lot happening this morning.", 5));
-        quotes[0].Add(new Quote("Mac n' Cheese has been officially declared a public menace in Bonsia.", 6));
-        quotes[0].Add(new Quote("In other news, Florida man jumps directly into alligator's asophagus.", 6));
-        quotes[0].Add(new Quote("This just in, our Cameraman Dave needs to pee and insits on letting us know about it.", 8));
+        quotes[0].Add(new Quote("Mac n' Cheese has been officially declared a public menace in Bonzonia.", 6));
+        quotes[0].Add(new Quote("In other news, Florida man jumps directly into alligator's asophagomuious.", 6));
+        quotes[0].Add(new Quote("This just in, our Cameraman Dave needs to pee and insipitits on letting us know about it.", 8));
 
 
     }
