@@ -7,7 +7,7 @@ using System;
 
 public class MicrophoneHandler : MonoBehaviour
 {
-    public string device = "Headset Microphone (2- CORSAIR HS70 PRO Wireless Gaming Headset)";
+    private string device;
     public GameObject audioVisualPrefab;
 
     public MusicHandler musicHandler;
@@ -33,11 +33,7 @@ public class MicrophoneHandler : MonoBehaviour
 
     private void Awake()
     {
-        print("Connected Devices: ");
-        foreach (string device in Microphone.devices)
-        {
-            print(device);
-        }
+        device = PlayerPrefs.GetString("ActiveDevice");
     }
 
     private void Start()
@@ -85,7 +81,7 @@ public class MicrophoneHandler : MonoBehaviour
 
     float GetDeepnessScore()
     {
-        return ListMedian(loBandSamples) / ListMedian(totalBandSamples);
+        return loBandSamples.Average() / totalBandSamples.Average();
     }
 
     bool IsAudioSourcePlaying()
@@ -195,6 +191,9 @@ public class MicrophoneHandler : MonoBehaviour
         //indicator.gameObject.SetActive(false);
         button.SetActive(true);
         finishContents.SetActive(false);
+
+        musicHandler.StopMusic();
+
         ClearVisualizer();
 
 

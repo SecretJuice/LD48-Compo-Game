@@ -28,6 +28,11 @@ public class MusicHandler : MonoBehaviour
 
     }
 
+    public void StopMusic()
+    {
+        audioSource.Stop();
+    }
+
     public void SetClip(int index)
     {
         audioSource.clip = audioClips[index];
