@@ -10,6 +10,8 @@ public class MicrophoneHandler : MonoBehaviour
     public string device = "Headset Microphone (2- CORSAIR HS70 PRO Wireless Gaming Headset)";
     public GameObject audioVisualPrefab;
 
+    public MusicHandler musicHandler;
+
     public Teleprompter teleprompter;
     public TimerIndicator indicator;
     public GameObject button;
@@ -168,6 +170,8 @@ public class MicrophoneHandler : MonoBehaviour
         //indicator.gameObject.SetActive(false);
         povContents.gameObject.SetActive(false);
         finishContents.gameObject.SetActive(true);
+
+        musicHandler.SetMusic(0, true, 0.8f);
 
         float deepnessForDay = 0f;
 
