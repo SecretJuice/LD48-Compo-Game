@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 using System;
 
@@ -11,6 +12,13 @@ public class MicrophoneHandler : MonoBehaviour
 
     public Teleprompter teleprompter;
     public TimerIndicator indicator;
+    public GameObject button;
+
+    public GameObject finishContents;
+    public GameObject povContents;
+
+    public Text headlineText;
+    public Image mouthImage;
 
     List<GameObject> visualizer = new List<GameObject>();
     List<float> loBandSamples = new List<float>();
@@ -19,6 +27,7 @@ public class MicrophoneHandler : MonoBehaviour
     List<AudioSource> audioSources = new List<AudioSource>();
 
     int currentScreenEvaluation = -1;
+    int currentNewsDay = -1;
 
     private void Awake()
     {
@@ -31,9 +40,11 @@ public class MicrophoneHandler : MonoBehaviour
 
     private void Start()
     {
-       // InitializeVisualizer();
-        InitializeDay(0);
-        StartCoroutine(RecordDay());
+        // InitializeVisualizer();
+        //InitializeDay(0);
+        //StartCoroutine(RecordDay());
+
+        //StartNextDay();
         
     }
 
@@ -53,6 +64,21 @@ public class MicrophoneHandler : MonoBehaviour
         }
 
         
+    }
+
+    public void StartNextDay()
+    {
+        currentNewsDay++;
+        currentScreenEvaluation = -1;
+
+        button.SetActive(false);
+        //indicator.gameObject.SetActive(true);
+        povContents.SetActive(true);
+
+        InitializeDay(currentNewsDay);
+
+        StartCoroutine(RecordDay());
+
     }
 
     float GetDeepnessScore()
@@ -98,6 +124,8 @@ public class MicrophoneHandler : MonoBehaviour
         visualizer[5].transform.localScale = new Vector2(1, l6);
         visualizer[6].transform.localScale = new Vector2(1, l7);
 
+        mouthImage.transform.localScale = new Vector2(Mathf.Clamp(1 * (l1 + l2 + l3 + l4 + l5 + l6 + l7), 1f, 5f), Mathf.Clamp(0.5f * (l1 + l2 + l3 + l4 + l5 + l6 + l7), 1f, 5f));
+
         loBandSamples.Add(l1 + l2);
         totalBandSamples.Add(l1 + l2 + l3 + l4 + l5 + l6 + l7);
     }
@@ -119,6 +147,11 @@ public class MicrophoneHandler : MonoBehaviour
 
     IEnumerator RecordDay()
     {
+        if (audioSources.Count == 0)
+        {
+            StopCoroutine(RecordDay());
+        }
+
         foreach (AudioSource source in audioSources)
         {
             int time = RecordScreen();
@@ -132,6 +165,9 @@ public class MicrophoneHandler : MonoBehaviour
     IEnumerator EvaluateDay()
     {
         InitializeVisualizer();
+        //indicator.gameObject.SetActive(false);
+        povContents.gameObject.SetActive(false);
+        finishContents.gameObject.SetActive(true);
 
         float deepnessForDay = 0f;
 
@@ -140,7 +176,9 @@ public class MicrophoneHandler : MonoBehaviour
             currentScreenEvaluation++;
             audioSources[currentScreenEvaluation].Play();
 
-            yield return new WaitForSeconds(source.clip.length + 1f);
+            headlineText.text = teleprompter.GetHeadline(currentScreenEvaluation).ToUpper();
+
+            yield return new WaitForSeconds(source.clip.length + 0.25f);
 
             print("Deepness Score: " + GetDeepnessScore());
             deepnessForDay += GetDeepnessScore();
@@ -149,13 +187,32 @@ public class MicrophoneHandler : MonoBehaviour
         }
 
         print("Deepness for today: " + deepnessForDay);
+
+        //indicator.gameObject.SetActive(false);
+        button.SetActive(true);
+        finishContents.SetActive(false);
+        ClearVisualizer();
+
+
     }
 
     void InitializeDay(int day)
     {
         int screenCount = teleprompter.SetDay(day);
 
+        foreach(AudioSource source in audioSources)
+        {
+            Destroy(source);
+        }
+
+
         audioSources.Clear();
+        
+
+        if (screenCount == -1)
+        {
+            return;
+        }
 
         for(int i = 0; i < screenCount; i++)
         {
@@ -171,6 +228,16 @@ public class MicrophoneHandler : MonoBehaviour
             GameObject cube = Instantiate(audioVisualPrefab, new Vector2(i * 1.5f, -1f), Quaternion.identity);
             visualizer.Add(cube);
         }
+    }
+
+    void ClearVisualizer()
+    {
+        foreach(GameObject cube in visualizer)
+        {
+            Destroy(cube);
+        }
+
+        visualizer.Clear();
     }
 
     float ListMedian(List<float> list)
