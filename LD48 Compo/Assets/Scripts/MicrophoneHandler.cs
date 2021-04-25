@@ -22,6 +22,8 @@ public class MicrophoneHandler : MonoBehaviour
     public Text headlineText;
     public Image mouthImage;
 
+    public Text dayText;
+
     List<GameObject> visualizer = new List<GameObject>();
     List<float> loBandSamples = new List<float>();
     List<float> totalBandSamples = new List<float>();
@@ -68,6 +70,8 @@ public class MicrophoneHandler : MonoBehaviour
     {
         currentNewsDay++;
         currentScreenEvaluation = -1;
+
+        dayText.text = "Day " + (currentNewsDay + 2);
 
         button.SetActive(false);
         //indicator.gameObject.SetActive(true);
@@ -122,7 +126,7 @@ public class MicrophoneHandler : MonoBehaviour
         visualizer[5].transform.localScale = new Vector2(1, l6);
         visualizer[6].transform.localScale = new Vector2(1, l7);
 
-        mouthImage.transform.localScale = new Vector2(Mathf.Clamp(1 * (l1 + l2 + l3 + l4 + l5 + l6 + l7), 1f, 5f), Mathf.Clamp(0.5f * (l1 + l2 + l3 + l4 + l5 + l6 + l7), 1f, 5f));
+        mouthImage.transform.localScale = new Vector2(Mathf.Clamp(0.03f * (l1 + l2 + l3 + l4 + l5 + l6 + l7), 0.02f, 0.2f), Mathf.Clamp(0.015f * (l1 + l2 + l3 + l4 + l5 + l6 + l7), 0.02f, 0.2f));
 
         loBandSamples.Add(l1 + l2);
         totalBandSamples.Add(l1 + l2 + l3 + l4 + l5 + l6 + l7);
@@ -167,7 +171,7 @@ public class MicrophoneHandler : MonoBehaviour
         povContents.gameObject.SetActive(false);
         finishContents.gameObject.SetActive(true);
 
-        musicHandler.SetMusic(0, true, 0.8f);
+        musicHandler.SetMusic(0, true, 0.6f);
 
         float deepnessForDay = 0f;
 
