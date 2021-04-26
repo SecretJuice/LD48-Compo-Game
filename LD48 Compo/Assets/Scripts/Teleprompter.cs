@@ -61,7 +61,7 @@ public class Teleprompter : MonoBehaviour
         quotes[1].Add(new Quote("An excedingly rare McDonald's Ice Cream machine has been placed in the Smithsonian after it went 4 days without breaking.", 10, "New relic of history"));
         quotes[1].Add(new Quote("Ludem Dare participant 'SecretJuice' doesn't know what to put in this teleprompter.", 7, "jammer forgets to make real content"));
         quotes[1].Add(new Quote("Studies have recently concluded that Australians stay on the ground because they have sticky feet.", 8, "How else would they be doing that?"));
-        quotes[1].Add(new Quote("That's all for today folks, tune in next time to learn how to protect your mid-sized sudan from highly maneuverable tactical aircraft.", 10, "The real threat"));
+        quotes[1].Add(new Quote("That's all for today folks, tune in next time to learn how to protect your mid-sized sedan from highly maneuverable tactical aircraft.", 10, "The real threat"));
 
         quotes[2].Add(new Quote("Good morning America! It is another day.", 5, "Good morning"));
         quotes[2].Add(new Quote("Incomimg reports describe astronomers detecting alien life, though the only signals recieved through deep space are waves resembling the Home Depot Theme.", 11, "How aliens get more done"));
