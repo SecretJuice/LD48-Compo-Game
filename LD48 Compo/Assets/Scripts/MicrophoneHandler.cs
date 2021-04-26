@@ -23,6 +23,10 @@ public class MicrophoneHandler : MonoBehaviour
     public Image mouthImage;
 
     public Text dayText;
+    public Text ratingsText;
+    public Text totalRatingsText;
+
+    List<float> ratings = new List<float>();
 
     List<GameObject> visualizer = new List<GameObject>();
     List<float> loBandSamples = new List<float>();
@@ -45,6 +49,8 @@ public class MicrophoneHandler : MonoBehaviour
         //StartCoroutine(RecordDay());
 
         //StartNextDay();
+
+        ratingsText.gameObject.SetActive(false);
         
     }
 
@@ -74,6 +80,7 @@ public class MicrophoneHandler : MonoBehaviour
         dayText.text = "Day " + (currentNewsDay + 2);
 
         button.SetActive(false);
+        ratingsText.gameObject.SetActive(false);
         //indicator.gameObject.SetActive(true);
         povContents.SetActive(true);
 
@@ -192,6 +199,14 @@ public class MicrophoneHandler : MonoBehaviour
 
         print("Deepness for today: " + deepnessForDay);
 
+        ratings.Add(deepnessForDay * 10);
+
+        if (currentNewsDay == 2)
+        {
+            EndGame();
+            yield break;
+        }
+
         //indicator.gameObject.SetActive(false);
         button.SetActive(true);
         finishContents.SetActive(false);
@@ -200,7 +215,25 @@ public class MicrophoneHandler : MonoBehaviour
 
         ClearVisualizer();
 
+        ratingsText.gameObject.SetActive(true);
+        ratingsText.text = "Today's ratings: " + (deepnessForDay * 10);
 
+    }
+
+    void EndGame()
+    {
+
+        finishContents.SetActive(false);
+
+        musicHandler.StopMusic();
+
+        ClearVisualizer();
+
+        totalRatingsText.gameObject.SetActive(true);
+        totalRatingsText.text = "Total Ratings: " + ratings.Sum();
+
+
+        //endgameystuff
     }
 
     void InitializeDay(int day)
