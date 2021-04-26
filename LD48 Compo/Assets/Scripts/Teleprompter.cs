@@ -63,11 +63,11 @@ public class Teleprompter : MonoBehaviour
         quotes[1].Add(new Quote("Studies have recently concluded that Australians stay on the ground because they have sticky feet.", 8, "How else would they be doing that?"));
         quotes[1].Add(new Quote("That's all for today folks, tune in next time to learn how to protect your mid-sized sudan from highly maneuverable tactical aircraft.", 10, "The real threat"));
 
-        quotes[2].Add(new Quote("Good morning America! This is another set of dummy quotes. For the thrid day.", 5, "Dumb game jam participant forgets to make real content"));
-        quotes[2].Add(new Quote("They should not stay here, because they are dumb.", 5, "Dumb game jam participant forgets to make real content"));
-        quotes[2].Add(new Quote("If you see this set of quotes, it means I messed up.", 5, "Dumb game jam participant forgets to make real content"));
-        quotes[2].Add(new Quote("Please, let me know if you see these quotes here so I can fix it ASAP.", 5, "Dumb game jam participant forgets to make real content"));
-        quotes[2].Add(new Quote("Have another beautiful day folks! We'll see you next time.", 5, "Dumb game jam participant forgets to make real content"));
+        quotes[2].Add(new Quote("Good morning America! It is another day.", 5, "Good morning"));
+        quotes[2].Add(new Quote("Incomimg reports describe astronomers detecting alien life, though the only signals recieved through deep space are waves resembling the Home Depot Theme.", 11, "How aliens get more done"));
+        quotes[2].Add(new Quote("Today marks the beginning of the 'Great Unicorn Reign,' as the unicorns have begun their mainland assaults through Eurasia.", 10, "Not so fluffy"));
+        quotes[2].Add(new Quote("Our writers here at LDNN have totally run out of ideas and have begun efforts to break the 4th wall.", 8, "Am I funny?"));
+        quotes[2].Add(new Quote("Have another beautiful day folks! We'll see you next time here at LDNN where we'll discuss the rat problems down at that local diner you swear wasn't there last time you walked home from work.", 13, "Darn rats"));
 
 
     }
